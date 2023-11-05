@@ -13,9 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build and deploy
+      - name: Set BASE_URL
         run: |
           # Secret'i bir değişken olarak kullanabilirsiniz
           BASE_URL=${{ secrets.BASE_URL }}
-          echo "Base URL: $BASE_URL"
+          echo "BASE_URL=$BASE_URL" > base_url.txt
           # Diğer işlemlerinizi burada gerçekleştirin
+
+      - name: Upload BASE_URL
+        uses: actions/upload-artifact@v2
+        with:
+          name: base_url
+          path: base_url.txt
