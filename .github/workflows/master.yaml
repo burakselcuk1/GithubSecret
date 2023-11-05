@@ -1,0 +1,21 @@
+name: My Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and deploy
+        run: |
+          # Secret'i bir değişken olarak kullanabilirsiniz
+          BASE_URL=${{ secrets.BASE_URL }}
+          echo "Base URL: $BASE_URL"
+          # Diğer işlemlerinizi burada gerçekleştirin
