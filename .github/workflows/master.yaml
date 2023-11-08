@@ -15,3 +15,12 @@ jobs:
           APOD_API_KEY: ${{ secrets.APOD_API_KEY }}
         run: echo APOD_API_KEY="$APOD_API_KEY" > ./local.properties
 
+      - name: Access Api keys
+        env:
+          clientId: ${{ secrets.APOD_API_KEY }}
+          path: app/src/main/res/values/secrets.xml
+        run: |
+          touch $path
+          echo '<resources>' >> $path
+          echo '<string name="CLIENT_ID">$API_KEY</string>' >> $path
+          echo '</resources>' >> $path
