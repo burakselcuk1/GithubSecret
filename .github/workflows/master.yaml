@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: Access Api keys
         env:
           clientId: ${{ secrets.APOD_API_KEY }}
