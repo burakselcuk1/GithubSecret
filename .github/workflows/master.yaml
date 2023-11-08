@@ -15,7 +15,6 @@ jobs:
           clientId: ${{ secrets.APOD_API_KEY }}
           path: app/src/main/res/values/secrets.xml
         run: |
-          mkdir -p app/src/main/res/values
           echo "clientId: $clientId" 
           echo '<?xml version="1.0" encoding="utf-8"?>' > $path
           echo '<resources>' >> $path
