@@ -16,5 +16,6 @@ jobs:
         clientId: ${{ secrets.APOD_API_KEY }}
         path: app/src/main/res/values/apikeys.xml
       run: |
-        echo "clientId: $clientId"
-        echo $clientId | xargs sed -i "s|</resources>|<string name=\"CLIENT_ID\">$clientId</string>\n</resources>|g" $path
+        clientId=${{ secrets.APOD_API_KEY }}
+        path=app/src/main/res/values/apikeys.xml
+        sed -i "s|</resources>|<string name=\"CLIENT_ID\">${clientId}:</string>\n</resources>|g" $path
