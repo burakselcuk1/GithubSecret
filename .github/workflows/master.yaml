@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Access Api keys
-      env:
-        clientId: ${{ secrets.APOD_API_KEY }}
-        path: app/src/main/res/values/apikeys.xml
-      run: |
-        clientId=${{ secrets.APOD_API_KEY }}
-        path=app/src/main/res/values/apikeys.xml
-        sed -i "s|</resources>|<string name=\"CLIENT_ID\">${clientId}:</string>\n</resources>|g" $path
+      - uses: actions/checkout@v2
+      - name: Access Api keys
+        env:
+          clientId: ${{ secrets.APOD_API_KEY }}
+          path: app/src/main/res/values/apikeys.xml
+        run: |
+          echo '<resources>' >> $path
+          echo "<string name=\"CLIENT_ID\">$clientId</string>" >> $path
+          echo '</resources>' >> $path
+
+          
