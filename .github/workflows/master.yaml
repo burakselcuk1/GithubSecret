@@ -16,6 +16,7 @@ jobs:
           clientId: 'Snyk Demo'
           path: app/src/main/res/values/apikeys.xml
         run: |
+          echa $clientId
           touch $path
           echo '<resources>' >> $path
           echo "<string name=\"CLIENT_ID\">$clientId</string>" >> $path
