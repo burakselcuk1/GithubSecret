@@ -14,7 +14,7 @@ jobs:
       - name: Access Api keys
         env:
           clientId: ${{ secrets.APOD_API_KEY }}
-          path: app/src/main/res/values/secrets.xml
+          path: app/src/main/res/values/apikeys.xml
         run: |
           echo "clientId: $clientId" 
           echo '<?xml version="1.0" encoding="utf-8"?>' > $path
