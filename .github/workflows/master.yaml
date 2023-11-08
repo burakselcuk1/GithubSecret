@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Access APOD_API_KEY
-        env:
-          APOD_API_KEY: ${{ secrets.APOD_API_KEY }}
-        run: echo APOD_API_KEY="$APOD_API_KEY" > ./local.properties
 
       - name: Access Api keys
         env:
