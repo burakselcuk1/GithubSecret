@@ -18,13 +18,27 @@ jobs:
           echo "BASE_URL=$BASE_URL" > base_url.txt
           # Diğer işlemlerinizi burada gerçekleştirin
 
-      - name: Get Run ID
-        id: run_id
+      - name: Get and Use Run ID in URL
+        id: get_and_use_run_id
         run: |
-          echo "::set-output name=run_id::${{ github.run_id }}"
-        
-      - name: Use Run ID in URL
-        run: |
-          RUN_ID="${{ steps.run_id.outputs.run_id }}"
-          URL="https://api.github.com/repos/burakselcuk1/GithubSecret/actions/artifacts/runs/$RUN_ID/artifacts/base_url"
-          # URL'i kullanarak isteği yapabilirsiniz
+          # Get the run ID
+          RUN_ID="${{ github.run_id }}"
+          echo "RUN_ID=$RUN_ID"
+
+          # Get the base URL
+          val client = OkHttpClient()
+          val request = Request.Builder()
+              .url("https://api.github.com/repos/burakselcuk1/GithubSecret/actions/artifacts/runs/$RUN_ID/artifacts/base_url")
+              .get()
+              .build()
+
+          try {
+              val response = client.newCall(request).execute()
+              if (response.isSuccessful) {
+                  echo "BASE_URL=${response.body()?.string()}"
+              } else {
+                  echo "Network request failed."
+              }
+          } catch (e: IOException) {
+              e.printStackTrace()
+          }
