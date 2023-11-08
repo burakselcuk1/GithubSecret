@@ -10,12 +10,13 @@ import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
-
+import com.base.githubsecret.BuildConfig
 
 class MainActivity : AppCompatActivity() {
 
     private var BASE_URL = "Buraya Github Actions ile alınan BASE_URL gelecek"
     private var runId: String? = null
+    private var secrets: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,39 +26,8 @@ class MainActivity : AppCompatActivity() {
         val baseUrlTextView: TextView = findViewById<TextView>(R.id.basee)
 
         button.setOnClickListener {
-            // Arka plan iş parçacığında ağ isteği yap
-            GlobalScope.launch(Dispatchers.IO) {
-                // "run_id" değerini al
-                runId = getRunId()
-                val base_url = getBaseUrl()
-                runOnUiThread {
-                    baseUrlTextView.text = base_url
-                }
-            }
+            baseUrlTextView.text = BuildConfig.API_KEY 
         }
     }
 
-    private fun getBaseUrl(): String {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("https://api.github.com/repos/burakselcuk1/GithubSecret/actions/artifacts/runs/$runId/artifacts/base_url")
-            .get()
-            .build()
-
-        try {
-            val response = client.newCall(request).execute()
-            if (response.isSuccessful) {
-                return response.body()?.string() ?: "Buraya Github Actions ile alınan BASE_URL gelecek"
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return "Ağ isteği başarısız oldu."
-    }
-
-    private fun getRunId(): String? {
-        // "github.run_id" değerini döndürerek "run_id" değerini alabilirsiniz
-        return "github.run_id" // Gerçek değeri bu şekilde almalısınız
-    }
 }
-
