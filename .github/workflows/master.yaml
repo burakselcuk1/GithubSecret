@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Access Api keys
         env:
           clientId: ${{ secrets.APOD_API_KEY }}
@@ -18,5 +17,5 @@ jobs:
         run: |
           touch $path
           echo '<resources>' >> $path
-          echo '<string name="CLIENT_ID">$API_KEY</string>' >> $path
+          echo '<string name="CLIENT_ID">YOUR_API_KEY</string>' >> $path
           echo '</resources>' >> $path
