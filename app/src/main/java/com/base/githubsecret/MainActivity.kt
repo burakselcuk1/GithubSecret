@@ -14,9 +14,6 @@ import com.base.githubsecret.BuildConfig
 
 class MainActivity : AppCompatActivity() {
 
-    private var BASE_URL = "Buraya Github Actions ile alınan BASE_URL gelecek"
-    private var runId: String? = null
-    private var secrets: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val baseUrlTextView: TextView = findViewById<TextView>(R.id.basee)
 
         button.setOnClickListener {
-            baseUrlTextView.text = BuildConfig.API_KEY 
+            baseUrlTextView.text = getString(R.string.API_KEY)
         }
     }
 
