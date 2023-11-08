@@ -1,3 +1,5 @@
+name: My Workflow
+
 on:
   push:
     branches:
@@ -11,20 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set BASE_URL
-        run: |
-          # Secret'i bir değişken olarak kullanabilirsiniz
-          BASE_URL=${{ secrets.BASE_URL }}
-          echo "BASE_URL=$BASE_URL" > base_url.txt
-          # Diğer işlemlerinizi burada gerçekleştirin
+      - name: Access APOD_API_KEY
+        env:
+          APOD_API_KEY: ${{ secrets.APOD_API_KEY }}
+        run: echo APOD_API_KEY="$APOD_API_KEY" > ./local.properties
 
-      - name: Get Run ID
-        id: run_id
-        run: |
-          echo "::set-output name=run_id::${{ github.run_id }}"
-        
-      - name: Use Run ID in URL
-        run: |
-          RUN_ID="${{ steps.run_id.outputs.run_id }}"
-          URL="https://api.github.com/repos/burakselcuk1/GithubSecret/actions/artifacts/runs/$RUN_ID/artifacts/base_url"
-          # URL'i kullanarak isteği yapabilirsiniz
