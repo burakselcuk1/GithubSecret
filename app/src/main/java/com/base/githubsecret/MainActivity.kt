@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val baseUrlTextView: TextView = findViewById<TextView>(R.id.basee)
 
         button.setOnClickListener {
-            baseUrlTextView.text = getString(R.string.API_KEY)
+            baseUrlTextView.text = getString(R.string.CLIENT_ID)
         }
     }
 
