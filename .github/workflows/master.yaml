@@ -15,7 +15,7 @@ jobs:
           clientId: ${{ secrets.APOD_API_KEY }}
           path: app/src/main/res/values/secrets.xml
         run: |
-          touch $path
+          echo '<?xml version="1.0" encoding="utf-8"?>' > $path
           echo '<resources>' >> $path
           echo '<string name="CLIENT_ID">YOUR_API_KEY</string>' >> $path
           echo '</resources>' >> $path
